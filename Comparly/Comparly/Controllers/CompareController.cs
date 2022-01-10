@@ -1,4 +1,5 @@
 ﻿using Comparly.Data.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,25 +20,32 @@ namespace Comparly.Core.Controllers
 
         [HttpPost]
         [Route("upload")]
-        public IActionResult UploadFiles(List<IFormFile> formFiles,string student1, string student2)
+        [Authorize]
+        public async Task<IActionResult> UploadFiles(List<IFormFile> formFiles,string student1, string student2)
         {
 
             return Ok();
         }
+
         [Route("compare-file")]
-        public IActionResult CompareFile()
+        [Authorize]
+        public async Task<IActionResult> CompareFile()
         {
             return Ok();
         }
+
         [HttpGet]
         [Route("get-comparison-history")]
-        public IActionResult GetComparisonHistory()
+        [Authorize]
+        public async Task<IActionResult> GetComparisonHistory()
         {
             return Ok();
         }
+
         [HttpGet]
         [Route("get-comparison-history-details")]
-        public IActionResult GetComparisonHistoryDetails()
+        [Authorize]
+        public async Task<IActionResult> GetComparisonHistoryDetails()
         {
             return Ok();
         }

@@ -1,9 +1,21 @@
 using Comparly.Core.Security;
+using Comparly.Data;
+using Comparly.Data.Models;
+using Comparly.Data.Profiles;
+using Comparly.Data.Services.AzureBlobStorageService.Implementation;
+using Comparly.Data.Services.AzureBlobStorageService.Interface;
+using Comparly.Data.Services.Implementation;
+using Comparly.Data.Services.Interface;
+using Comparly.Data.Services.RapidApiService.Implementation;
+using Comparly.Data.Services.RapidApiService.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +42,19 @@ namespace Comparly
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlite(connectionString));
 
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(Configuration.GetSection("AzureStorage:connectionString").Value);
+            });
+            services.AddSingleton<IStorageService,StorageService>();
+            services.AddScoped<ICompareService,CompareService>();
+            services.AddSingleton<IRapidApiService,RapidApiService>();
             services.AddControllers();
 
             services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
