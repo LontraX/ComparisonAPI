@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <IisApp path="C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\obj\Release\net5.0\PubTmp\Out\" />
+  <dbfullsql path="C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\obj\Release\net5.0\PubTmp\EFSQLScripts\Comparly.Data.AppDbContext.sql" />
 </sitemanifest>

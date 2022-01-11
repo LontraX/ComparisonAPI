@@ -46,7 +46,7 @@ namespace Comparly
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer("server = .; Database = CompareAPI; Integrated Security = True"));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer("Data Source=tcp:comparlycoredbserver.database.windows.net,1433;Initial Catalog=Comparly.Core_db;User Id=lontra@comparlycoredbserver;Password=Drolumide100%"));
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddAutoMapper(typeof(MappingProfile));

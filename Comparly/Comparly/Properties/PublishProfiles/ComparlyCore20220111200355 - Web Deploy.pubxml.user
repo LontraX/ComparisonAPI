@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAuDqEQMyCg06UjIMi7mLPrQAAAAACAAAAAAAQZgAAAAEAACAAAAAPQfrvZf/2D2I9sQMjP/5QtSTgPnbNPoJtb4Ag3RIh/gAAAAAOgAAAAAIAACAAAAA/yuLhVY8SGYroQTLpRpSPcVDqS/xb55QieFM+L8tZioAAAAD44RGCE4u6mmWi6e10QNkAF7zjol1xybW7n+p0g9Ffq/3qaT3tRpKtO774M9AOdJ7uE0Jc6D5ayjWdS99a7mLo2oNhTi+v5dypZEamWT323ICx5MLgEz4Oxp6/r/wBFHehdkJHWdqTzBPgJPVUus4ASNP+n7w0cEXelyhZT1ODmUAAAACBB0gDG76Kvda8FhRrHVK0xrV62AOkvhvqWt//XDu8iXm1aoCFTl+ZU8KtXVCgS4KauMz8+wQ6vxr00rBTZN5i</EncryptedPassword>
+    <History>True|2022-01-11T19:59:28.7790703Z;True|2022-01-11T20:48:30.9712387+01:00;True|2022-01-11T20:46:33.6479696+01:00;True|2022-01-11T20:40:39.5582723+01:00;True|2022-01-11T20:32:03.4592394+01:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="Comparly.Data.AppDbContext">
+      <Value>Data Source=tcp:comparlycoredbserver.database.windows.net,1433%3bInitial Catalog=Comparly.Core_db%3bUser Id=lontra%40comparlycoredbserver%3bPassword=Drolumide100%25</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
