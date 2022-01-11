@@ -4,6 +4,7 @@ using Comparly.Data.Models;
 using Comparly.Data.Services.CloudinaryService.Interface;
 using Comparly.Data.Services.Interface;
 using Comparly.Data.Services.RapidApiService.Interface;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Comparly.Core.Controllers
@@ -42,26 +44,39 @@ namespace Comparly.Core.Controllers
         [Authorize]
         public async Task<IActionResult> UploadFiles(List<IFormFile> formFiles,[FromQuery]string student1,[FromQuery] string student2)
         {
-            var email = User.FindFirst("sub")?.Value;
+            
+            var userId = User.FindFirstValue("Id");
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            
             Submission submission = new Submission()
             {
                 FirstStudentsName = student1,
                 SecondStudentsName = student2,
-                SubmittedBy = email,
+                SubmittedBy = currentUser.FirstName + " " + currentUser.LastName,
+                AppUser = currentUser
             };
             var uploadResponse1 = await _cloudinaryService.UploadFile(formFiles[0]);
             var uploadResponse2 = await _cloudinaryService.UploadFile(formFiles[1]);
             submission.DocumentAUrl = uploadResponse1.FileUrl;
             submission.DocumentBUrl = uploadResponse2.FileUrl;
-            return Ok(submission);
+            var result = await _compareService.AddSubmissionAsync(submission);
+            if (result)
+            {
+                return Ok(submission);
+            }
+
+            return BadRequest("an error occured");
         }
         [HttpPatch]
-        [Route("compare-file/{id}")]
+        [Route("compare-file/{submissionId}")]
         [Authorize]
-        public async Task<IActionResult> CompareFile(string id)
+        public async Task<IActionResult> CompareFile(string submissionId)
         {
-            var submission = await _compareService.GetSubmissionByIdAsync(id);
-
+            var submission = await _compareService.GetSubmissionByIdAsync(submissionId);
+            if (submission == null)
+            {
+                return BadRequest("submission file not found");
+            }
             var rapidApiResponse = await _rapidApiService.GetTextSimilarity(submission.DocumentAUrl, submission.DocumentBUrl);
             submission.PercentageSimilarity = (decimal)rapidApiResponse.similarity * 100;
             submission.TextExplanation = rapidApiResponse.result_msg;
@@ -71,16 +86,16 @@ namespace Comparly.Core.Controllers
         }
 
         [HttpGet]
-        [Route("get-comparison-history/{id}")]
+        [Route("get-comparison-history/{submissionId}")]
         [Authorize]
-        public async Task<IActionResult> GetComparisonHistoryById(string id)
+        public async Task<IActionResult> GetComparisonHistoryById(string submissionId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("invalid request");
             }
 
-            var submission = await _compareService.GetSubmissionByIdAsync(id);
+            var submission = await _compareService.GetSubmissionByIdAsync(submissionId);
             if (submission == null)
             {
                 ModelState.AddModelError("Submission", "Submission does not exist");

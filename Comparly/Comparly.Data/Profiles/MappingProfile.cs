@@ -14,6 +14,9 @@ namespace Comparly.Data.Profiles
         public MappingProfile()
         {
             CreateMap<AppUser, AddAppUserDto>().ReverseMap();
+            CreateMap<Submission, SubmissionToReturnDto>().ReverseMap();
+            CreateMap<Submission, ComparisonHistoryDto>().ReverseMap();
+            CreateMap<Submission, ComparisonHistoryDetailsDto>().ReverseMap();
         }
     }
 }

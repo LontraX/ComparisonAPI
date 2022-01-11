@@ -78,7 +78,8 @@ namespace Comparly
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
-                    RequireExpirationTime = false
+                    RequireExpirationTime = false,
+                    
                 };
             });
 
