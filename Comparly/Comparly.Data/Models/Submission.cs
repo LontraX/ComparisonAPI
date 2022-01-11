@@ -16,7 +16,8 @@ namespace Comparly.Data.Models
         public string DocumentBUrl { get; set; }
         public decimal PercentageSimilarity { get; set; }
         public string TextExplanation { get; set; }
-        public DateTime SubmittedAt { get; set; }
+        public DateTime SubmittedAt { get; set; } = DateTime.Now;
         public string SubmittedBy { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }
