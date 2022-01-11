@@ -37,7 +37,7 @@ namespace Comparly.Data.Services.CloudinaryService.Implementation
         public async Task<FileUploadResponseDto> UploadFile(IFormFile file)
         {
             var fileUpload = new RawUploadResult();
-
+            
             using (var fs = file.OpenReadStream())
             {
                 var fileUploadParams = new BasicRawUploadParams()
@@ -47,6 +47,7 @@ namespace Comparly.Data.Services.CloudinaryService.Implementation
                 fileUpload = await _cloudinary.UploadLargeRawAsync(fileUploadParams);
             }
             var fileUrl = fileUpload.Url.ToString();
+            
             FileUploadResponseDto response = new FileUploadResponseDto()
             {
                 FileUrl = fileUrl,

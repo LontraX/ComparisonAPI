@@ -3,6 +3,7 @@ using Comparly.Data.Dtos;
 using Comparly.Data.Models;
 using Comparly.Data.Services.CloudinaryService.Interface;
 using Comparly.Data.Services.Interface;
+using Comparly.Data.Services.RapidApiService.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Comparly.Core.Controllers
@@ -22,39 +24,50 @@ namespace Comparly.Core.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly ICloudinaryService _cloudinaryService;
+        private readonly IRapidApiService _rapidApiService;
         public int _perPage = 5;
 
-        public CompareController(ICompareService compareService, IMapper mapper, UserManager<AppUser> userManager, ICloudinaryService cloudinaryService)
+        public CompareController(ICompareService compareService, IMapper mapper, UserManager<AppUser> userManager, ICloudinaryService cloudinaryService, IRapidApiService rapidApiService)
         {
             _compareService = compareService;
             _mapper = mapper;
             _userManager = userManager;
             _cloudinaryService = cloudinaryService;
+            _rapidApiService = rapidApiService;
             
         }
 
         [HttpPost]
         [Route("upload")]
-        //[Authorize]
-        public async Task<IActionResult> UploadFiles(List<IFormFile> formFiles,string student1, string student2)
+        [Authorize]
+        public async Task<IActionResult> UploadFiles(List<IFormFile> formFiles,[FromQuery]string student1,[FromQuery] string student2)
         {
+            var email = User.FindFirst("sub")?.Value;
             Submission submission = new Submission()
             {
                 FirstStudentsName = student1,
                 SecondStudentsName = student2,
+                SubmittedBy = email,
             };
             var uploadResponse1 = await _cloudinaryService.UploadFile(formFiles[0]);
             var uploadResponse2 = await _cloudinaryService.UploadFile(formFiles[1]);
             submission.DocumentAUrl = uploadResponse1.FileUrl;
             submission.DocumentBUrl = uploadResponse2.FileUrl;
-            return Ok();
+            return Ok(submission);
         }
-
-        [Route("compare-file")]
+        [HttpPatch]
+        [Route("compare-file/{id}")]
         [Authorize]
-        public async Task<IActionResult> CompareFile()
+        public async Task<IActionResult> CompareFile(string id)
         {
-            return Ok();
+            var submission = await _compareService.GetSubmissionByIdAsync(id);
+
+            var rapidApiResponse = await _rapidApiService.GetTextSimilarity(submission.DocumentAUrl, submission.DocumentBUrl);
+            submission.PercentageSimilarity = (decimal)rapidApiResponse.similarity * 100;
+            submission.TextExplanation = rapidApiResponse.result_msg;
+            await _compareService.UpdateSubmissionAsync(submission);
+
+            return Ok(submission);
         }
 
         [HttpGet]
