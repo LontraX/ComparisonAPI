@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = Comparly.Data
-build_property.ProjectDir = c:\users\hp\source\repos\comparisonapi\comparly\Comparly.Data\
+build_property.ProjectDir = C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\

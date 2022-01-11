@@ -1,0 +1,15 @@
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\Comparly.Data.deps.json
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\Comparly.Data.runtimeconfig.json
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\Comparly.Data.runtimeconfig.dev.json
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\Comparly.Data.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\ref\Comparly.Data.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\bin\Release\net5.0\Comparly.Data.pdb
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.csproj.AssemblyReference.cache
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.AssemblyInfoInputs.cache
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.AssemblyInfo.cs
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.csproj.CoreCompileInputs.cache
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\ref\Comparly.Data.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.pdb
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly.Data\obj\Release\net5.0\Comparly.Data.genruntimeconfig.cache
