@@ -4,10 +4,13 @@ using Comparly.Data.Models;
 using Comparly.Data.Profiles;
 using Comparly.Data.Services.AzureBlobStorageService.Implementation;
 using Comparly.Data.Services.AzureBlobStorageService.Interface;
+using Comparly.Data.Services.CloudinaryService.Implementation;
+using Comparly.Data.Services.CloudinaryService.Interface;
 using Comparly.Data.Services.Implementation;
 using Comparly.Data.Services.Interface;
 using Comparly.Data.Services.RapidApiService.Implementation;
 using Comparly.Data.Services.RapidApiService.Interface;
+using Comparly.Data.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +58,8 @@ namespace Comparly
             services.AddSingleton<IStorageService,StorageService>();
             services.AddScoped<ICompareService,CompareService>();
             services.AddSingleton<IRapidApiService,RapidApiService>();
+            services.AddSingleton<ICloudinaryService, CloudinaryService>();
+            services.Configure<CloudinaryConfig>(Configuration.GetSection("CloudinaryConfig"));
             services.AddControllers();
 
             services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));

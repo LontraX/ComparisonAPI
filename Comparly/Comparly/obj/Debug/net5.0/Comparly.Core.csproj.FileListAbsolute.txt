@@ -158,3 +158,5 @@ C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\obj\Debug\net5.0\Compar
 C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\obj\Debug\net5.0\Comparly.Core.genruntimeconfig.cache
 C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\bin\Debug\net5.0\Humanizer.dll
 C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\bin\Debug\net5.0\CloudinaryDotNet.dll
+C:\Users\hp\source\repos\ComparisonAPI\Comparly\Comparly\bin\Debug\net5.0\Microsoft.Extensions.WebEncoders.dll

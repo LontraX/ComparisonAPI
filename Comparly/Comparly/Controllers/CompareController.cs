@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Comparly.Data.Dtos;
 using Comparly.Data.Models;
+using Comparly.Data.Services.CloudinaryService.Interface;
 using Comparly.Data.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,22 +21,32 @@ namespace Comparly.Core.Controllers
         private readonly ICompareService _compareService;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ICloudinaryService _cloudinaryService;
         public int _perPage = 5;
 
-        public CompareController(ICompareService compareService, IMapper mapper, UserManager<AppUser> userManager)
+        public CompareController(ICompareService compareService, IMapper mapper, UserManager<AppUser> userManager, ICloudinaryService cloudinaryService)
         {
             _compareService = compareService;
             _mapper = mapper;
             _userManager = userManager;
+            _cloudinaryService = cloudinaryService;
             
         }
 
         [HttpPost]
         [Route("upload")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> UploadFiles(List<IFormFile> formFiles,string student1, string student2)
         {
-
+            Submission submission = new Submission()
+            {
+                FirstStudentsName = student1,
+                SecondStudentsName = student2,
+            };
+            var uploadResponse1 = await _cloudinaryService.UploadFile(formFiles[0]);
+            var uploadResponse2 = await _cloudinaryService.UploadFile(formFiles[1]);
+            submission.DocumentAUrl = uploadResponse1.FileUrl;
+            submission.DocumentBUrl = uploadResponse2.FileUrl;
             return Ok();
         }
 
