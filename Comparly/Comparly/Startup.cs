@@ -46,7 +46,7 @@ namespace Comparly
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlite(connectionString));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer("server = .; Database = CompareAPI; Integrated Security = True"));
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddAutoMapper(typeof(MappingProfile));
@@ -113,7 +113,7 @@ namespace Comparly
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() && env.IsProduction())
+            if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
