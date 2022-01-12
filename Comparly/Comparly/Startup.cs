@@ -113,12 +113,12 @@ namespace Comparly
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() || env.IsProduction())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comparly v1"));
-            }
+            //if (env.IsDevelopment() || env.IsProduction())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comparly v1"));
+            //}
 
             app.UseHttpsRedirection();
 
@@ -131,6 +131,8 @@ namespace Comparly
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comparly v1"));
             });
         }
     }
